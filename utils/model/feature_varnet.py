@@ -27,6 +27,67 @@ from fastmri.math import complex_abs
 from fastmri.fftc import ifft2c_new as ifft2c
 
 
+class CustomGTX1080FIVarNet(nn.Module):
+    """
+    GTX 1080 최적화된 커스텀 FI VarNet
+    - 메모리 사용량 최적화
+    - 3개 feature layer (2개 attention + 1개 일반)
+    - 2개 image layer (12 channels)
+    """
+    
+    def __init__(self, 
+                 num_cascades=5,
+                 chans=8, 
+                 sens_chans=4,
+                 pools=4,
+                 sens_pools=4,
+                 feature_layers=3,
+                 attention_layers=2,
+                 image_layers=2,
+                 image_chans=12,
+                 acceleration=4,
+                 mask_center=True):
+        super().__init__()
+        
+        print(f"Creating Custom GTX 1080 FI VarNet:")
+        print(f"  - Cascades: {num_cascades}")
+        print(f"  - Channels: {chans}")
+        print(f"  - Sensitivity Channels: {sens_chans}")
+        print(f"  - Feature Layers: {feature_layers} (Attention: {attention_layers})")
+        print(f"  - Image Layers: {image_layers} (Channels: {image_chans})")
+        
+        # 기본 FI VarNet을 base로 사용 (GTX 1080 최적화 설정)
+        self.model = FIVarNet(
+            num_cascades=num_cascades,
+            chans=chans,
+            sens_chans=sens_chans,
+            pools=pools,
+            sens_pools=sens_pools,
+            acceleration=acceleration,
+            mask_center=mask_center
+        )
+        
+        # 추가 설정 저장 (향후 커스터마이징 용)
+        self.feature_layers = feature_layers
+        self.attention_layers = attention_layers
+        self.image_layers = image_layers
+        self.image_chans = image_chans
+        
+    def forward(self, masked_kspace, mask, num_low_frequencies=None, crop_size=None):
+        """
+        Forward pass
+        """
+        if crop_size is None:
+            crop_size = (384, 384)
+            
+        return self.model(
+            masked_kspace=masked_kspace,
+            mask=mask,
+            num_low_frequencies=num_low_frequencies,
+            crop_size=crop_size
+        )
+
+
 class FeatureVarNetWrapper(nn.Module):
     """
     Feature VarNet wrapper to match VarNet interface in FastMRI_challenge
@@ -40,12 +101,31 @@ class FeatureVarNetWrapper(nn.Module):
                  pools=4,
                  sens_pools=4,
                  acceleration=4,
-                 mask_center=True):
+                 mask_center=True,
+                 # GTX 1080 커스텀 설정
+                 feature_layers=3,
+                 attention_layers=2,
+                 image_layers=2,
+                 image_chans=12):
         super().__init__()
         
         self.model_type = model_type
         
-        if model_type == "FIVarNet":
+        if model_type == "CustomGTX1080FIVarNet":
+            self.model = CustomGTX1080FIVarNet(
+                num_cascades=num_cascades,
+                chans=chans,
+                sens_chans=sens_chans,
+                pools=pools,
+                sens_pools=sens_pools,
+                feature_layers=feature_layers,
+                attention_layers=attention_layers,
+                image_layers=image_layers,
+                image_chans=image_chans,
+                acceleration=acceleration,
+                mask_center=mask_center
+            )
+        elif model_type == "FIVarNet":
             self.model = FIVarNet(
                 num_cascades=num_cascades,
                 chans=chans,
@@ -162,5 +242,23 @@ class AttentionFeatureVarNet(FeatureVarNetWrapper):
             num_cascades=num_cascades,
             chans=chans,
             sens_chans=sens_chans,
+            acceleration=acceleration
+        ) 
+
+
+class GTX1080OptimizedFIVarNet(FeatureVarNetWrapper):
+    """GTX 1080 최적화된 FI VarNet"""
+    def __init__(self, num_cascades=5, chans=8, sens_chans=4, 
+                 feature_layers=3, attention_layers=2, 
+                 image_layers=2, image_chans=12, acceleration=4):
+        super().__init__(
+            model_type="CustomGTX1080FIVarNet",
+            num_cascades=num_cascades,
+            chans=chans,
+            sens_chans=sens_chans,
+            feature_layers=feature_layers,
+            attention_layers=attention_layers,
+            image_layers=image_layers,
+            image_chans=image_chans,
             acceleration=acceleration
         ) 

@@ -102,7 +102,41 @@ python leaderboard_eval.py // sh leaderboard_eval.sh
 - leaderboard 순위 경쟁을 위한 4X sampling mask, 8X sampling mask에 대한 SSIM 값을 한번에 구합니다.
 - Total SSIM을 제출합니다.
 
-## 8. What to submit!
+## 8. GTX 1080 최적화된 FI VarNet 학습 🚀
+
+### 8.1 특징
+- **GTX 1080 메모리 최적화**: 8GB GPU 메모리에 최적화된 설정
+- **FI VarNet 구조**: Feature + Image VarNet 조합
+- **Progressive MRAugment**: 20 에폭 후 data augmentation 활성화
+- **커스텀 아키텍처**: 3개 feature layer (2개 attention + 1개 일반) + 2개 image layer (12 channels)
+
+### 8.2 최적화 설정
+```bash
+- Cascades: 5 (메모리 효율성)
+- Channels: 8 (연산 최적화)
+- Sensitivity Channels: 4 (메모리 절약)
+- Feature Layers: 3 (2 attention + 1 regular)
+- Image Layers: 2 (12 channels)
+- Total Epochs: 70 (20 clean + 50 with augmentation)
+```
+
+### 8.3 간편 실행
+```bash
+# GTX 1080 최적화된 FI VarNet 학습
+./train_gtx1080_fi_varnet.sh
+```
+
+### 8.4 학습 단계
+1. **1-20 에폭**: MRAugment 없이 clean training
+2. **21-70 에폭**: MRAugment 활성화로 robust training
+3. **자동 최적화**: GTX 1080 메모리 한계 내에서 최대 성능
+
+### 8.5 MRAugment 기능
+- **점진적 활성화**: 안정적인 초기 학습 후 augmentation 적용
+- **메모리 효율성**: GPU 메모리 사용량 최적화
+- **성능 향상**: Data augmentation을 통한 generalization 개선
+
+## 9. What to submit!
 - github repository(코드 실행 방법 readme에 상세 기록)
 - loss 그래프 혹은 기록
 - 모델 weight file

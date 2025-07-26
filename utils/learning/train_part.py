@@ -5,6 +5,7 @@ import torch.nn as nn
 import time
 from pathlib import Path
 import copy
+import argparse
 
 from collections import defaultdict
 from utils.data.load_data import create_data_loaders
@@ -23,6 +24,7 @@ try:
         FeatureVarNet_sh_w,
         FIVarNet,
         IFVarNet,
+        GTX1080OptimizedFIVarNet,  # 새로운 GTX 1080 최적화 모델
     )
     FEATURE_VARNET_AVAILABLE = True
     print("Feature VarNet models successfully imported!")
@@ -187,8 +189,11 @@ def train(args):
     best_val_loss = 1.
     start_epoch = 0
 
-    # MRAugment DataAugmentor 생성 (if available and enabled)
+    # MRAugment DataAugmentor 생성 (epoch별 제어)
     augmentor = None
+    augmentor_enabled = None  # 나중에 활성화할 augmentor
+    current_epoch = [0]  # mutable object to store current epoch
+    
     try:
         # MRAugment import 시도
         import sys
@@ -199,37 +204,58 @@ def train(args):
         
         from mraugment.data_augment import DataAugmentor
         
-        # augmentation이 활성화된 경우에만 augmentor 생성
-        if hasattr(args, 'aug_on') and args.aug_on:
-            # epoch을 반환하는 함수 정의 (model의 current_epoch를 사용할 수 없으므로 다른 방법 사용)
-            current_epoch = [0]  # mutable object to store current epoch
+        # MRAugment compatibility: max_epochs attribute 추가
+        if not hasattr(args, 'max_epochs') and hasattr(args, 'num_epochs'):
+            args.max_epochs = args.num_epochs
+        
+        # aug_start_epoch가 설정되어 있으면 해당 시점부터 augmentation 활성화
+        if hasattr(args, 'aug_start_epoch') and args.aug_start_epoch > 0:
+            # epoch을 반환하는 함수 정의
             current_epoch_fn = lambda: current_epoch[0]
             
-            # MRAugment compatibility: max_epochs attribute 추가
-            if not hasattr(args, 'max_epochs') and hasattr(args, 'num_epochs'):
-                args.max_epochs = args.num_epochs
+            # 나중에 사용할 augmentor를 미리 생성 (args를 복사해서 aug_on=True로 설정)
+            args_with_aug = argparse.Namespace(**vars(args))
+            args_with_aug.aug_on = True
             
+            augmentor_enabled = DataAugmentor(args_with_aug, current_epoch_fn)
+            print(f"MRAugment DataAugmentor prepared to start from epoch {args.aug_start_epoch}")
+            print(f"Augmentation settings (will be activated later):")
+            print(f"  - aug_strength: {args_with_aug.aug_strength}")
+            print(f"  - aug_schedule: {args_with_aug.aug_schedule}")
+            print(f"  - aug_delay: {args_with_aug.aug_delay}")
+            print(f"  - max_epochs: {args_with_aug.max_epochs}")
+        elif hasattr(args, 'aug_on') and args.aug_on:
+            # 기존 방식: 처음부터 augmentation 활성화
+            current_epoch_fn = lambda: current_epoch[0]
             augmentor = DataAugmentor(args, current_epoch_fn)
             print(f"MRAugment DataAugmentor created with aug_on={args.aug_on}")
-            print(f"Augmentation settings:")
-            print(f"  - aug_strength: {args.aug_strength}")
-            print(f"  - aug_schedule: {args.aug_schedule}")
-            print(f"  - aug_delay: {args.aug_delay}")
-            print(f"  - max_epochs: {args.max_epochs}")
         else:
-            print("MRAugment available but data augmentation is disabled (aug_on=False)")
+            print("MRAugment available but data augmentation is disabled")
             
     except ImportError as e:
         print(f"MRAugment not available: {e}")
     except Exception as e:
         print(f"Error setting up MRAugment: {e}")
 
+    # 초기 train_loader 생성 (augmentation 없이)
     train_loader = create_data_loaders(data_path = args.data_path_train, args = args, shuffle=True, augmentor=augmentor)
     val_loader = create_data_loaders(data_path = args.data_path_val, args = args)
     
     val_loss_log = np.empty((0, 2))
     for epoch in range(start_epoch, args.num_epochs):
         print(f'Epoch #{epoch:2d} ............... {args.net_name} ...............')
+        
+        # MRAugment 활성화 체크 및 train_loader 재생성
+        if (augmentor_enabled is not None and 
+            hasattr(args, 'aug_start_epoch') and 
+            epoch == args.aug_start_epoch and 
+            augmentor is None):
+            
+            print(f"\n🚀 Activating MRAugment from epoch {epoch}!")
+            augmentor = augmentor_enabled
+            # train_loader를 augmentation이 활성화된 상태로 재생성
+            train_loader = create_data_loaders(data_path = args.data_path_train, args = args, shuffle=True, augmentor=augmentor)
+            print(f"✅ Train loader recreated with MRAugment enabled\n")
         
         # Update current epoch for MRAugment scheduler
         if augmentor is not None:

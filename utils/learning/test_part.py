@@ -10,13 +10,14 @@ from utils.model.varnet import VarNet
 
 # feature_varnet 모델들을 import하기 위한 try-except 구문
 try:
-    from feature_varnet import (
+    from utils.model.feature_varnet import (
         AttentionFeatureVarNet_n_sh_w,
         E2EVarNet,
         FeatureVarNet_n_sh_w,
         FeatureVarNet_sh_w,
         FIVarNet,
         IFVarNet,
+        GTX1080OptimizedFIVarNet,  # 새로운 GTX 1080 최적화 모델
     )
     FEATURE_VARNET_AVAILABLE = True
 except ImportError:
@@ -55,15 +56,30 @@ def create_model(args):
         acceleration = 4
         
         if args.varnet_type == "fi_varnet":
-            print(f"BUILDING FI VARNET, chans={args.chans}")
-            model = FIVarNet(
-                num_cascades=args.cascade,
-                pools=args.pools,
-                chans=args.chans,
-                sens_pools=args.sens_pools,
-                sens_chans=args.sens_chans,
-                acceleration=acceleration,
-            )
+            # GTX 1080 최적화된 설정인지 확인
+            if (hasattr(args, 'feature_layers') and hasattr(args, 'attention_layers') and 
+                hasattr(args, 'image_layers') and hasattr(args, 'image_chans')):
+                print(f"BUILDING GTX 1080 OPTIMIZED FI VARNET, chans={args.chans}")
+                model = GTX1080OptimizedFIVarNet(
+                    num_cascades=args.cascade,
+                    chans=args.chans,
+                    sens_chans=args.sens_chans,
+                    feature_layers=args.feature_layers,
+                    attention_layers=args.attention_layers,
+                    image_layers=args.image_layers,
+                    image_chans=args.image_chans,
+                    acceleration=acceleration,
+                )
+            else:
+                print(f"BUILDING STANDARD FI VARNET, chans={args.chans}")
+                model = FIVarNet(
+                    num_cascades=args.cascade,
+                    pools=args.pools,
+                    chans=args.chans,
+                    sens_pools=args.sens_pools,
+                    sens_chans=args.sens_chans,
+                    acceleration=acceleration,
+                )
         elif args.varnet_type == "if_varnet":
             print(f"BUILDING IF VARNET, chans={args.chans}")
             model = IFVarNet(
