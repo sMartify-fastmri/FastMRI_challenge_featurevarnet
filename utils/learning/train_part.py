@@ -16,7 +16,7 @@ import os
 
 # feature_varnet 모델들을 import하기 위한 try-except 구문
 try:
-    from feature_varnet import (
+    from utils.model.feature_varnet import (
         AttentionFeatureVarNet_n_sh_w,
         E2EVarNet,
         FeatureVarNet_n_sh_w,
@@ -25,8 +25,9 @@ try:
         IFVarNet,
     )
     FEATURE_VARNET_AVAILABLE = True
-except ImportError:
-    print("Warning: feature_varnet modules not available. Only E2E VarNet will be supported.")
+    print("Feature VarNet models successfully imported!")
+except ImportError as e:
+    print(f"Warning: feature_varnet modules not available: {e}")
     FEATURE_VARNET_AVAILABLE = False
 
 class FeatureVarNetWrapper(nn.Module):
@@ -43,87 +44,49 @@ class FeatureVarNetWrapper(nn.Module):
         return output
 
 def create_model(args):
-    """선택된 모델 타입에 따라 적절한 모델을 생성합니다."""
+    """선택된 feature_model_type에 따라 적절한 feature varnet 모델을 생성합니다."""
     
-    if args.model_type == 'e2e_varnet':
-        # 기존 E2E VarNet 사용 (이미 center_crop이 적용됨)
-        model = VarNet(num_cascades=args.cascade, 
-                       chans=args.chans, 
-                       sens_chans=args.sens_chans)
-        print(f"Created E2E VarNet with cascades={args.cascade}, chans={args.chans}, sens_chans={args.sens_chans}")
-        
-    elif args.model_type == 'feature_varnet':
-        if not FEATURE_VARNET_AVAILABLE:
-            raise ImportError("feature_varnet modules are not available. Please check the import path.")
-        
-        # acceleration은 일반적으로 4를 기본값으로 사용
-        acceleration = 4
-        
-        if args.varnet_type == "fi_varnet":
-            print(f"BUILDING FI VARNET, chans={args.chans}")
-            base_model = FIVarNet(
-                num_cascades=args.cascade,
-                pools=args.pools,
-                chans=args.chans,
-                sens_pools=args.sens_pools,
-                sens_chans=args.sens_chans,
-                acceleration=acceleration,
-            )
-        elif args.varnet_type == "if_varnet":
-            print(f"BUILDING IF VARNET, chans={args.chans}")
-            base_model = IFVarNet(
-                num_cascades=args.cascade,
-                pools=args.pools,
-                chans=args.chans,
-                sens_pools=args.sens_pools,
-                sens_chans=args.sens_chans,
-                acceleration=acceleration,
-            )
-        elif args.varnet_type == "attention_feature_varnet_sh_w":
-            print(f"BUILDING ATTENTION FEATURE VARNET WITH WEIGHT SHARING, chans={args.chans}")
-            base_model = AttentionFeatureVarNet_n_sh_w(
-                num_cascades=args.cascade,
-                pools=args.pools,
-                chans=args.chans,
-                sens_pools=args.sens_pools,
-                sens_chans=args.sens_chans,
-                acceleration=acceleration,
-            )
-        elif args.varnet_type == "feature_varnet_n_sh_w":
-            print(f"BUILDING FEATURE VARNET WITHOUT WEIGHT SHARING, chans={args.chans}")
-            base_model = FeatureVarNet_n_sh_w(
-                num_cascades=args.cascade,
-                pools=args.pools,
-                chans=args.chans,
-                sens_pools=args.sens_pools,
-                sens_chans=args.sens_chans,
-            )
-        elif args.varnet_type == "feature_varnet_sh_w":
-            print(f"BUILDING FEATURE VARNET WITH WEIGHT SHARING, chans={args.chans}")
-            base_model = FeatureVarNet_sh_w(
-                num_cascades=args.cascade,
-                pools=args.pools,
-                chans=args.chans,
-                sens_pools=args.sens_pools,
-                sens_chans=args.sens_chans,
-            )
-        elif args.varnet_type == "e2e_varnet":
-            print(f"BUILDING E2E VARNET (from feature_varnet), chans={args.chans}")
-            base_model = E2EVarNet(
-                num_cascades=args.cascade,
-                pools=args.pools,
-                chans=args.chans,
-                sens_pools=args.sens_pools,
-                sens_chans=args.sens_chans,
-            )
-        else:
-            raise ValueError(f"Unrecognized varnet_type: {args.varnet_type}")
-        
-        # feature_varnet 모델들에 center_crop wrapper 적용
-        model = FeatureVarNetWrapper(base_model)
-        print("Applied center_crop wrapper to feature_varnet model")
+    if not FEATURE_VARNET_AVAILABLE:
+        raise ImportError("feature_varnet modules are not available. Please check the import path.")
+    
+    # acceleration은 일반적으로 4를 기본값으로 사용
+    acceleration = 4
+    
+    if args.feature_model_type == "basic":
+        print(f"BUILDING FEATURE VARNET WITH WEIGHT SHARING (basic), chans={args.chans}")
+        base_model = FeatureVarNet_sh_w(
+            num_cascades=args.cascade,
+            pools=args.pools,
+            chans=args.chans,
+            sens_pools=args.sens_pools,
+            sens_chans=args.sens_chans,
+        )
+    elif args.feature_model_type == "FI":
+        print(f"BUILDING FI VARNET, chans={args.chans}")
+        base_model = FIVarNet(
+            num_cascades=args.cascade,
+            pools=args.pools,
+            chans=args.chans,
+            sens_pools=args.sens_pools,
+            sens_chans=args.sens_chans,
+            acceleration=acceleration,
+        )
+    elif args.feature_model_type == "Attention":
+        print(f"BUILDING ATTENTION FEATURE VARNET WITH WEIGHT SHARING, chans={args.chans}")
+        base_model = AttentionFeatureVarNet_n_sh_w(
+            num_cascades=args.cascade,
+            pools=args.pools,
+            chans=args.chans,
+            sens_pools=args.sens_pools,
+            sens_chans=args.sens_chans,
+            acceleration=acceleration,
+        )
     else:
-        raise ValueError(f"Unrecognized model_type: {args.model_type}")
+        raise ValueError(f"Unrecognized feature_model_type: {args.feature_model_type}")
+    
+    # feature_varnet 모델들에 center_crop wrapper 적용
+    model = FeatureVarNetWrapper(base_model)
+    print("Applied center_crop wrapper to feature_varnet model")
     
     return model
 
@@ -208,8 +171,11 @@ def save_model(args, exp_dir, epoch, model, optimizer, best_val_loss, is_new_bes
         
 def train(args):
     device = torch.device(f'cuda:{args.GPU_NUM}' if torch.cuda.is_available() else 'cpu')
-    torch.cuda.set_device(device)
-    print('Current cuda device: ', torch.cuda.current_device())
+    if torch.cuda.is_available():
+        torch.cuda.set_device(device)
+        print('Current cuda device: ', torch.cuda.current_device())
+    else:
+        print('CUDA not available, using CPU')
 
     # 새로운 모델 생성 함수 사용
     model = create_model(args)
@@ -221,13 +187,53 @@ def train(args):
     best_val_loss = 1.
     start_epoch = 0
 
-    
-    train_loader = create_data_loaders(data_path = args.data_path_train, args = args, shuffle=True)
+    # MRAugment DataAugmentor 생성 (if available and enabled)
+    augmentor = None
+    try:
+        # MRAugment import 시도
+        import sys
+        import os
+        mraugment_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.getcwd()))), 'MRAugment')
+        if mraugment_path not in sys.path:
+            sys.path.insert(1, mraugment_path)
+        
+        from mraugment.data_augment import DataAugmentor
+        
+        # augmentation이 활성화된 경우에만 augmentor 생성
+        if hasattr(args, 'aug_on') and args.aug_on:
+            # epoch을 반환하는 함수 정의 (model의 current_epoch를 사용할 수 없으므로 다른 방법 사용)
+            current_epoch = [0]  # mutable object to store current epoch
+            current_epoch_fn = lambda: current_epoch[0]
+            
+            # MRAugment compatibility: max_epochs attribute 추가
+            if not hasattr(args, 'max_epochs') and hasattr(args, 'num_epochs'):
+                args.max_epochs = args.num_epochs
+            
+            augmentor = DataAugmentor(args, current_epoch_fn)
+            print(f"MRAugment DataAugmentor created with aug_on={args.aug_on}")
+            print(f"Augmentation settings:")
+            print(f"  - aug_strength: {args.aug_strength}")
+            print(f"  - aug_schedule: {args.aug_schedule}")
+            print(f"  - aug_delay: {args.aug_delay}")
+            print(f"  - max_epochs: {args.max_epochs}")
+        else:
+            print("MRAugment available but data augmentation is disabled (aug_on=False)")
+            
+    except ImportError as e:
+        print(f"MRAugment not available: {e}")
+    except Exception as e:
+        print(f"Error setting up MRAugment: {e}")
+
+    train_loader = create_data_loaders(data_path = args.data_path_train, args = args, shuffle=True, augmentor=augmentor)
     val_loader = create_data_loaders(data_path = args.data_path_val, args = args)
     
     val_loss_log = np.empty((0, 2))
     for epoch in range(start_epoch, args.num_epochs):
         print(f'Epoch #{epoch:2d} ............... {args.net_name} ...............')
+        
+        # Update current epoch for MRAugment scheduler
+        if augmentor is not None:
+            current_epoch[0] = epoch
         
         train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
         val_loss, num_subjects, reconstructions, targets, inputs, val_time = validate(args, model, val_loader)

@@ -16,11 +16,25 @@ feature_varnet_path = os.path.join(fastmri_path, 'fastmri_examples/feature_varne
 if feature_varnet_path not in sys.path:
     sys.path.insert(1, feature_varnet_path)
 
+# MRAugment 경로 추가
+mraugment_path = os.path.join(os.path.dirname(os.getcwd()), 'MRAugment')
+if mraugment_path not in sys.path:
+    sys.path.insert(1, mraugment_path)
+
 from utils.learning.train_part import train
 
 if os.getcwd() + '/utils/common/' not in sys.path:
     sys.path.insert(1, os.getcwd() + '/utils/common/')
 from utils.common.utils import seed_fix
+
+# MRAugment import
+try:
+    from mraugment.data_augment import DataAugmentor
+    MRAUGMENT_AVAILABLE = True
+    print("MRAugment successfully imported!")
+except ImportError as e:
+    print(f"Warning: MRAugment not available: {e}")
+    MRAUGMENT_AVAILABLE = False
 
 
 def parse():
@@ -35,20 +49,12 @@ def parse():
     parser.add_argument('-t', '--data-path-train', type=Path, default='/Data/train/', help='Directory of train data')
     parser.add_argument('-v', '--data-path-val', type=Path, default='/Data/val/', help='Directory of validation data')
     
-    # 모델 타입 선택 옵션 추가
-    parser.add_argument('--model-type', type=str, default='e2e_varnet', 
-                       choices=['e2e_varnet', 'feature_varnet'], 
-                       help='Type of VarNet model to use')
-    
-    # feature_varnet 관련 옵션 추가
-    parser.add_argument('--varnet-type', type=str, default='fi_varnet',
-                       choices=['fi_varnet', 'if_varnet', 'feature_varnet_sh_w', 
-                               'feature_varnet_n_sh_w', 'attention_feature_varnet_sh_w', 'e2e_varnet'],
-                       help='Specific type of feature varnet (only used when model-type is feature_varnet)')
-    
+    # Feature VarNet 관련 arguments (기존 CLI 호환)
     parser.add_argument('--cascade', type=int, default=1, help='Number of cascades | Should be less than 12') ## important hyperparameter
     parser.add_argument('--chans', type=int, default=9, help='Number of channels for cascade U-Net | 18 in original varnet') ## important hyperparameter
     parser.add_argument('--sens_chans', type=int, default=4, help='Number of channels for sensitivity map U-Net | 8 in original varnet') ## important hyperparameter
+    parser.add_argument('--feature_model_type', type=str, default='basic', choices=['basic', 'FI', 'Attention'], 
+                        help='Type of Feature VarNet: basic (FeatureVarNet_sh_w), FI (FIVarNet), Attention (AttentionFeatureVarNet)')  ## feature varnet type
     
     # feature_varnet에서 추가로 필요한 파라미터들
     parser.add_argument('--pools', type=int, default=4, help='Number of pooling layers for U-Net (for feature_varnet)')
@@ -59,6 +65,10 @@ def parse():
     parser.add_argument('--max-key', type=str, default='max', help='Name of max key in attributes')
     parser.add_argument('--seed', type=int, default=430, help='Fix random seed')
 
+    # MRAugment 관련 arguments 추가
+    if MRAUGMENT_AVAILABLE:
+        parser = DataAugmentor.add_augmentation_specific_args(parser)
+    
     args = parser.parse_args()
     return args
 
@@ -69,9 +79,13 @@ if __name__ == '__main__':
     if args.seed is not None:
         seed_fix(args.seed)
 
-    # 모델 타입에 따라 네트워크 이름 수정
-    if args.model_type == 'feature_varnet':
-        args.net_name = Path(f"{args.net_name}_{args.varnet_type}")
+    # Feature 모델 타입에 따라 네트워크 이름 수정
+    if hasattr(args, 'feature_model_type'):
+        args.net_name = Path(f"{args.net_name}_{args.feature_model_type}")
+    
+    # MRAugment가 활성화된 경우 네트워크 이름에 표시
+    if MRAUGMENT_AVAILABLE and hasattr(args, 'aug_on') and args.aug_on:
+        args.net_name = Path(f"{args.net_name}_mraugment")
 
     result_base = Path('../result') / args.net_name
     args.exp_dir = result_base / 'checkpoints'

@@ -1,0 +1,245 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.12.11
+    cli_version: 0.21.0
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1753476200
+    t:
+      1:
+      - 1
+      - 41
+      2:
+      - 1
+      - 41
+      3:
+      - 4
+      - 13
+      - 16
+      - 42
+      - 61
+      4: 3.12.11
+      5: 0.21.0
+      13: linux-x86_64
+    e:
+      qkoazdawd2yo2x4cd2kxiu85vyp77iat:
+        os: Linux-6.8.0-64-generic-x86_64-with-glibc2.35
+        python: CPython 3.12.11
+        started_at: '2025-07-25T20:43:19.923280Z'
+        args:
+        - --feature_model_type
+        - basic
+        - --cascade
+        - '2'
+        - --chans
+        - '18'
+        - --sens_chans
+        - '8'
+        - --batch-size
+        - '1'
+        - --num-epochs
+        - '3'
+        - --lr
+        - 3e-4
+        - --net-name
+        - feature_varnet_basic_test
+        - --data-path-train
+        - /media/ujin/Windows/fastmri/train
+        - --data-path-val
+        - /media/ujin/Windows/fastmri/val
+        - --aug_on
+        - --aug_strength
+        - '0.5'
+        - --aug_schedule
+        - exp
+        - --aug_delay
+        - '1'
+        - --wandb-project
+        - fastmri-mraugment-test
+        - --wandb-name
+        - basic_mraugment_test
+        - --wandb-offline
+        program: /home/ujin/Github/FastMRI_challenge_featurevarnet/train.py
+        code_path: train.py
+        code_path_local: train.py
+        git:
+          remote_url: https://github.com/sMartify-fastmri/FastMRI_challenge_featurevarnet.git
+          commit: 300821982ce238c5a063dd7d943723e724b8b440
+        root: /home/ujin/Github/FastMRI_challenge_featurevarnet
+        host: ujin-Desk-ASRock-Z790-PG-Lightning-D5
+        executable: /home/ujin/miniconda3/envs/fastmri/bin/python
+        cpu_count: 24
+        cpu_count_logical: 32
+        gpu_type: NVIDIA GeForce RTX 4080 SUPER
+        gpu_count: 1
+        disk:
+          /:
+            total: '721334468608'
+            used: '102009683968'
+        memory:
+          total: '33469808640'
+        gpu_nvidia:
+        - name: NVIDIA GeForce RTX 4080 SUPER
+          memory_total: '17171480576'
+          cuda_cores: 10240
+          architecture: Ada
+          uuid: GPU-8956385d-da5c-61ec-d005-373a80fe64d1
+        cuda_version: '12.9'
+        writer_id: qkoazdawd2yo2x4cd2kxiu85vyp77iat
+GPU_NUM:
+  desc: null
+  value: 0
+batch_size:
+  desc: null
+  value: 1
+num_epochs:
+  desc: null
+  value: 3
+lr:
+  desc: null
+  value: 0.0003
+report_interval:
+  desc: null
+  value: 10
+net_name:
+  desc: null
+  value: feature_varnet_basic_test_basic_mraugment
+data_path_train:
+  desc: null
+  value: /media/ujin/Windows/fastmri/train
+data_path_val:
+  desc: null
+  value: /media/ujin/Windows/fastmri/val
+cascade:
+  desc: null
+  value: 2
+chans:
+  desc: null
+  value: 18
+sens_chans:
+  desc: null
+  value: 8
+feature_model_type:
+  desc: null
+  value: basic
+pools:
+  desc: null
+  value: 4
+sens_pools:
+  desc: null
+  value: 4
+input_key:
+  desc: null
+  value: kspace
+target_key:
+  desc: null
+  value: image_label
+max_key:
+  desc: null
+  value: max
+seed:
+  desc: null
+  value: 430
+wandb_project:
+  desc: null
+  value: fastmri-mraugment-test
+wandb_name:
+  desc: null
+  value: basic_mraugment_test
+wandb_offline:
+  desc: null
+  value: true
+disable_wandb:
+  desc: null
+  value: false
+aug_on:
+  desc: null
+  value: true
+aug_schedule:
+  desc: null
+  value: exp
+aug_delay:
+  desc: null
+  value: 1
+aug_strength:
+  desc: null
+  value: 0.5
+aug_exp_decay:
+  desc: null
+  value: 5.0
+aug_interpolation_order:
+  desc: null
+  value: 1
+aug_upsample:
+  desc: null
+  value: false
+aug_upsample_factor:
+  desc: null
+  value: 2
+aug_upsample_order:
+  desc: null
+  value: 1
+aug_weight_translation:
+  desc: null
+  value: 1.0
+aug_weight_rotation:
+  desc: null
+  value: 1.0
+aug_weight_shearing:
+  desc: null
+  value: 1.0
+aug_weight_scaling:
+  desc: null
+  value: 1.0
+aug_weight_rot90:
+  desc: null
+  value: 1.0
+aug_weight_fliph:
+  desc: null
+  value: 1.0
+aug_weight_flipv:
+  desc: null
+  value: 1.0
+aug_max_translation_x:
+  desc: null
+  value: 0.125
+aug_max_translation_y:
+  desc: null
+  value: 0.125
+aug_max_rotation:
+  desc: null
+  value: 180.0
+aug_max_shearing_x:
+  desc: null
+  value: 15.0
+aug_max_shearing_y:
+  desc: null
+  value: 15.0
+aug_max_scaling:
+  desc: null
+  value: 0.25
+max_train_resolution:
+  desc: null
+  value: null
+exp_dir:
+  desc: null
+  value: ../result/feature_varnet_basic_test_basic_mraugment/checkpoints
+val_dir:
+  desc: null
+  value: ../result/feature_varnet_basic_test_basic_mraugment/reconstructions_val
+main_dir:
+  desc: null
+  value: ../result/feature_varnet_basic_test_basic_mraugment/train.py
+val_loss_dir:
+  desc: null
+  value: ../result/feature_varnet_basic_test_basic_mraugment
+model_parameters:
+  desc: null
+  value: 16025992
+trainable_parameters:
+  desc: null
+  value: 16025992

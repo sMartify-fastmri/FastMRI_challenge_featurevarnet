@@ -1,0 +1,186 @@
+_wandb:
+    value:
+        cli_version: 0.21.0
+        e:
+            v8u88iovpvbjyjn3oay2yy7ay0f3xde9:
+                args:
+                    - --feature_model_type
+                    - basic
+                    - --cascade
+                    - "2"
+                    - --chans
+                    - "18"
+                    - --sens_chans
+                    - "8"
+                    - --batch-size
+                    - "1"
+                    - --num-epochs
+                    - "2"
+                    - --lr
+                    - "3e-4"
+                    - --net-name
+                    - feature_varnet_online_test
+                    - --data-path-train
+                    - /media/ujin/Windows/fastmri/train
+                    - --data-path-val
+                    - /media/ujin/Windows/fastmri/val
+                    - --aug_on
+                    - --aug_strength
+                    - "0.3"
+                    - --aug_schedule
+                    - constant
+                    - --aug_delay
+                    - "0"
+                    - --wandb-project
+                    - fastmri-mraugment-experiments
+                    - --wandb-name
+                    - online_test_aug_0.3
+                codePath: train.py
+                codePathLocal: train.py
+                cpu_count: 24
+                cpu_count_logical: 32
+                cudaVersion: "12.9"
+                disk:
+                    /:
+                        total: "721334468608"
+                        used: "102055313408"
+                email: eugene5759@snu.ac.kr
+                executable: /home/ujin/miniconda3/envs/fastmri/bin/python
+                git:
+                    commit: 300821982ce238c5a063dd7d943723e724b8b440
+                    remote: https://github.com/sMartify-fastmri/FastMRI_challenge_featurevarnet.git
+                gpu: NVIDIA GeForce RTX 4080 SUPER
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 10240
+                      memoryTotal: "17171480576"
+                      name: NVIDIA GeForce RTX 4080 SUPER
+                      uuid: GPU-8956385d-da5c-61ec-d005-373a80fe64d1
+                host: ujin-Desk-ASRock-Z790-PG-Lightning-D5
+                memory:
+                    total: "33469808640"
+                os: Linux-6.8.0-64-generic-x86_64-with-glibc2.35
+                program: /home/ujin/Github/FastMRI_challenge_featurevarnet/train.py
+                python: CPython 3.12.11
+                root: /home/ujin/Github/FastMRI_challenge_featurevarnet
+                startedAt: "2025-07-25T20:59:49.432353Z"
+                writerId: v8u88iovpvbjyjn3oay2yy7ay0f3xde9
+        m: []
+        python_version: 3.12.11
+        t:
+            "1":
+                - 1
+                - 41
+            "2":
+                - 1
+                - 41
+            "3":
+                - 13
+                - 16
+            "4": 3.12.11
+            "5": 0.21.0
+            "12": 0.21.0
+            "13": linux-x86_64
+GPU_NUM:
+    value: 0
+aug_delay:
+    value: 0
+aug_exp_decay:
+    value: 5
+aug_interpolation_order:
+    value: 1
+aug_max_rotation:
+    value: 180
+aug_max_scaling:
+    value: 0.25
+aug_max_shearing_x:
+    value: 15
+aug_max_shearing_y:
+    value: 15
+aug_max_translation_x:
+    value: 0.125
+aug_max_translation_y:
+    value: 0.125
+aug_on:
+    value: true
+aug_schedule:
+    value: constant
+aug_strength:
+    value: 0.3
+aug_upsample:
+    value: false
+aug_upsample_factor:
+    value: 2
+aug_upsample_order:
+    value: 1
+aug_weight_fliph:
+    value: 1
+aug_weight_flipv:
+    value: 1
+aug_weight_rot90:
+    value: 1
+aug_weight_rotation:
+    value: 1
+aug_weight_scaling:
+    value: 1
+aug_weight_shearing:
+    value: 1
+aug_weight_translation:
+    value: 1
+batch_size:
+    value: 1
+cascade:
+    value: 2
+chans:
+    value: 18
+data_path_train:
+    value: /media/ujin/Windows/fastmri/train
+data_path_val:
+    value: /media/ujin/Windows/fastmri/val
+disable_wandb:
+    value: false
+exp_dir:
+    value: ../result/feature_varnet_online_test_basic_mraugment/checkpoints
+feature_model_type:
+    value: basic
+input_key:
+    value: kspace
+lr:
+    value: 0.0003
+main_dir:
+    value: ../result/feature_varnet_online_test_basic_mraugment/train.py
+max_key:
+    value: max
+max_train_resolution:
+    value: null
+model_parameters:
+    value: 16025992
+net_name:
+    value: feature_varnet_online_test_basic_mraugment
+num_epochs:
+    value: 2
+pools:
+    value: 4
+report_interval:
+    value: 10
+seed:
+    value: 430
+sens_chans:
+    value: 8
+sens_pools:
+    value: 4
+target_key:
+    value: image_label
+trainable_parameters:
+    value: 16025992
+val_dir:
+    value: ../result/feature_varnet_online_test_basic_mraugment/reconstructions_val
+val_loss_dir:
+    value: ../result/feature_varnet_online_test_basic_mraugment
+wandb_name:
+    value: online_test_aug_0.3
+wandb_offline:
+    value: false
+wandb_project:
+    value: fastmri-mraugment-experiments

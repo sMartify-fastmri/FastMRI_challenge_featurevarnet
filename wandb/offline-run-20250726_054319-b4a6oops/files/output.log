@@ -1,0 +1,120 @@
+Wandb initialized: project=fastmri-mraugment-test, name=basic_mraugment_test
+MRAugment DataAugmentor created with aug_on=True
+Augmentation settings:
+  - aug_strength: 0.5
+  - aug_schedule: exp
+  - aug_delay: 1
+  - max_epochs: 3
+Epoch # 0 ............... feature_varnet_basic_test_basic_mraugment ...............
+Epoch = [  0/  3] Iter = [   0/4937] Loss = 0.6782 Time = 0.5204s
+Epoch = [  0/  3] Iter = [  10/4937] Loss = 0.3442 Time = 2.2375s
+Epoch = [  0/  3] Iter = [  20/4937] Loss = 0.4551 Time = 2.5758s
+Epoch = [  0/  3] Iter = [  30/4937] Loss = 0.3543 Time = 2.2973s
+Epoch = [  0/  3] Iter = [  40/4937] Loss = 0.1941 Time = 1.9640s
+Epoch = [  0/  3] Iter = [  50/4937] Loss = 0.2608 Time = 2.4767s
+Epoch = [  0/  3] Iter = [  60/4937] Loss = 0.286 Time = 2.1656s
+Epoch = [  0/  3] Iter = [  70/4937] Loss = 0.1919 Time = 2.3693s
+Epoch = [  0/  3] Iter = [  80/4937] Loss = 0.2047 Time = 2.5879s
+Epoch = [  0/  3] Iter = [  90/4937] Loss = 0.276 Time = 2.0318s
+Epoch = [  0/  3] Iter = [ 100/4937] Loss = 0.1048 Time = 2.6512s
+Epoch = [  0/  3] Iter = [ 110/4937] Loss = 0.1088 Time = 2.2434s
+Epoch = [  0/  3] Iter = [ 120/4937] Loss = 0.2938 Time = 2.4422s
+Epoch = [  0/  3] Iter = [ 130/4937] Loss = 0.2558 Time = 2.2520s
+Epoch = [  0/  3] Iter = [ 140/4937] Loss = 0.103 Time = 2.4610s
+Epoch = [  0/  3] Iter = [ 150/4937] Loss = 0.1753 Time = 2.1794s
+Epoch = [  0/  3] Iter = [ 160/4937] Loss = 0.3385 Time = 2.2658s
+Epoch = [  0/  3] Iter = [ 170/4937] Loss = 0.1878 Time = 2.4531s
+Epoch = [  0/  3] Iter = [ 180/4937] Loss = 0.284 Time = 2.4162s
+Epoch = [  0/  3] Iter = [ 190/4937] Loss = 0.3011 Time = 2.2338s
+Epoch = [  0/  3] Iter = [ 200/4937] Loss = 0.1498 Time = 2.2623s
+Epoch = [  0/  3] Iter = [ 210/4937] Loss = 0.1519 Time = 2.8346s
+Epoch = [  0/  3] Iter = [ 220/4937] Loss = 0.1965 Time = 2.1606s
+Epoch = [  0/  3] Iter = [ 230/4937] Loss = 0.2537 Time = 2.1239s
+Epoch = [  0/  3] Iter = [ 240/4937] Loss = 0.1448 Time = 2.3397s
+Epoch = [  0/  3] Iter = [ 250/4937] Loss = 0.1425 Time = 2.4570s
+Epoch = [  0/  3] Iter = [ 260/4937] Loss = 0.3108 Time = 2.1533s
+Epoch = [  0/  3] Iter = [ 270/4937] Loss = 0.1042 Time = 2.3302s
+Epoch = [  0/  3] Iter = [ 280/4937] Loss = 0.1469 Time = 1.9768s
+Epoch = [  0/  3] Iter = [ 290/4937] Loss = 0.1904 Time = 2.5195s
+Epoch = [  0/  3] Iter = [ 300/4937] Loss = 0.2124 Time = 2.0698s
+Epoch = [  0/  3] Iter = [ 310/4937] Loss = 0.2032 Time = 2.0790s
+Epoch = [  0/  3] Iter = [ 320/4937] Loss = 0.1876 Time = 2.1280s
+Epoch = [  0/  3] Iter = [ 330/4937] Loss = 0.1551 Time = 2.5595s
+Epoch = [  0/  3] Iter = [ 340/4937] Loss = 0.1875 Time = 2.4765s
+Epoch = [  0/  3] Iter = [ 350/4937] Loss = 0.2574 Time = 2.2599s
+Epoch = [  0/  3] Iter = [ 360/4937] Loss = 0.09994 Time = 2.0751s
+Epoch = [  0/  3] Iter = [ 370/4937] Loss = 0.1568 Time = 2.2756s
+Epoch = [  0/  3] Iter = [ 380/4937] Loss = 0.15 Time = 2.4927s
+Epoch = [  0/  3] Iter = [ 390/4937] Loss = 0.06804 Time = 2.4866s
+Epoch = [  0/  3] Iter = [ 400/4937] Loss = 0.1304 Time = 2.2051s
+Epoch = [  0/  3] Iter = [ 410/4937] Loss = 0.1751 Time = 2.2008s
+Epoch = [  0/  3] Iter = [ 420/4937] Loss = 0.1041 Time = 2.4900s
+Epoch = [  0/  3] Iter = [ 430/4937] Loss = 0.3571 Time = 2.2852s
+Epoch = [  0/  3] Iter = [ 440/4937] Loss = 0.1694 Time = 2.4790s
+Epoch = [  0/  3] Iter = [ 450/4937] Loss = 0.1834 Time = 2.0407s
+Epoch = [  0/  3] Iter = [ 460/4937] Loss = 0.2126 Time = 2.2776s
+Epoch = [  0/  3] Iter = [ 470/4937] Loss = 0.1045 Time = 2.4414s
+Epoch = [  0/  3] Iter = [ 480/4937] Loss = 0.1412 Time = 2.2542s
+Epoch = [  0/  3] Iter = [ 490/4937] Loss = 0.2034 Time = 2.2280s
+Epoch = [  0/  3] Iter = [ 500/4937] Loss = 0.2037 Time = 2.5526s
+Epoch = [  0/  3] Iter = [ 510/4937] Loss = 0.1448 Time = 2.5099s
+Epoch = [  0/  3] Iter = [ 520/4937] Loss = 0.2014 Time = 2.2748s
+Epoch = [  0/  3] Iter = [ 530/4937] Loss = 0.1678 Time = 2.3492s
+Epoch = [  0/  3] Iter = [ 540/4937] Loss = 0.2245 Time = 1.8625s
+Epoch = [  0/  3] Iter = [ 550/4937] Loss = 0.257 Time = 2.0164s
+Epoch = [  0/  3] Iter = [ 560/4937] Loss = 0.1026 Time = 2.6116s
+Epoch = [  0/  3] Iter = [ 570/4937] Loss = 0.1388 Time = 2.4325s
+Epoch = [  0/  3] Iter = [ 580/4937] Loss = 0.1605 Time = 2.2343s
+Epoch = [  0/  3] Iter = [ 590/4937] Loss = 0.1439 Time = 2.1799s
+Epoch = [  0/  3] Iter = [ 600/4937] Loss = 0.1031 Time = 2.2826s
+Epoch = [  0/  3] Iter = [ 610/4937] Loss = 0.136 Time = 2.3427s
+Epoch = [  0/  3] Iter = [ 620/4937] Loss = 0.06373 Time = 2.1609s
+Epoch = [  0/  3] Iter = [ 630/4937] Loss = 0.328 Time = 2.3500s
+Epoch = [  0/  3] Iter = [ 640/4937] Loss = 0.1571 Time = 2.4235s
+Epoch = [  0/  3] Iter = [ 650/4937] Loss = 0.1156 Time = 2.4444s
+Epoch = [  0/  3] Iter = [ 660/4937] Loss = 0.2844 Time = 2.1823s
+Epoch = [  0/  3] Iter = [ 670/4937] Loss = 0.1228 Time = 2.1992s
+Epoch = [  0/  3] Iter = [ 680/4937] Loss = 0.1636 Time = 2.4019s
+Epoch = [  0/  3] Iter = [ 690/4937] Loss = 0.1328 Time = 1.9924s
+Epoch = [  0/  3] Iter = [ 700/4937] Loss = 0.1356 Time = 2.5760s
+Epoch = [  0/  3] Iter = [ 710/4937] Loss = 0.1108 Time = 2.3635s
+Epoch = [  0/  3] Iter = [ 720/4937] Loss = 0.1652 Time = 2.1009s
+Epoch = [  0/  3] Iter = [ 730/4937] Loss = 0.1393 Time = 2.4549s
+Epoch = [  0/  3] Iter = [ 740/4937] Loss = 0.2588 Time = 2.3860s
+Epoch = [  0/  3] Iter = [ 750/4937] Loss = 0.1617 Time = 2.2046s
+Epoch = [  0/  3] Iter = [ 760/4937] Loss = 0.1087 Time = 2.4270s
+Epoch = [  0/  3] Iter = [ 770/4937] Loss = 0.1577 Time = 2.2493s
+Epoch = [  0/  3] Iter = [ 780/4937] Loss = 0.1778 Time = 2.6152s
+Epoch = [  0/  3] Iter = [ 790/4937] Loss = 0.102 Time = 2.2144s
+Epoch = [  0/  3] Iter = [ 800/4937] Loss = 0.2089 Time = 2.1861s
+Epoch = [  0/  3] Iter = [ 810/4937] Loss = 0.07405 Time = 2.0853s
+Epoch = [  0/  3] Iter = [ 820/4937] Loss = 0.2815 Time = 2.3359s
+Epoch = [  0/  3] Iter = [ 830/4937] Loss = 0.07735 Time = 2.5557s
+Epoch = [  0/  3] Iter = [ 840/4937] Loss = 0.1378 Time = 2.1197s
+Epoch = [  0/  3] Iter = [ 850/4937] Loss = 0.1371 Time = 2.3335s
+Epoch = [  0/  3] Iter = [ 860/4937] Loss = 0.1503 Time = 2.1363s
+Epoch = [  0/  3] Iter = [ 870/4937] Loss = 0.1178 Time = 2.4268s
+Epoch = [  0/  3] Iter = [ 880/4937] Loss = 0.0911 Time = 2.0913s
+Epoch = [  0/  3] Iter = [ 890/4937] Loss = 0.1474 Time = 2.0968s
+Epoch = [  0/  3] Iter = [ 900/4937] Loss = 0.1789 Time = 2.6200s
+Epoch = [  0/  3] Iter = [ 910/4937] Loss = 0.1666 Time = 2.0999s
+Epoch = [  0/  3] Iter = [ 920/4937] Loss = 0.174 Time = 2.2180s
+Epoch = [  0/  3] Iter = [ 930/4937] Loss = 0.08123 Time = 2.1878s
+Epoch = [  0/  3] Iter = [ 940/4937] Loss = 0.1338 Time = 2.4817s
+Epoch = [  0/  3] Iter = [ 950/4937] Loss = 0.08928 Time = 2.0833s
+Epoch = [  0/  3] Iter = [ 960/4937] Loss = 0.08248 Time = 2.3761s
+Epoch = [  0/  3] Iter = [ 970/4937] Loss = 0.06036 Time = 2.6914s
+Epoch = [  0/  3] Iter = [ 980/4937] Loss = 0.05618 Time = 2.2555s
+Epoch = [  0/  3] Iter = [ 990/4937] Loss = 0.2172 Time = 2.1711s
+/home/ujin/Github/fastMRI/fastmri/models/feature_varnet.py:1595: UserWarning: where received a uint8 condition tensor. This behavior is deprecated and will be removed in a future version of PyTorch. Use a boolean condition instead. (Triggered internally at /pytorch/aten/src/ATen/native/TensorCompare.cpp:611.)
+  torch.where(
+Traceback (most recent call last):
+  File "/home/ujin/Github/FastMRI_challenge_featurevarnet/train.py", line 105, in <module>
+    train(args)
+  File "/home/ujin/Github/FastMRI_challenge_featurevarnet/utils/learning/train_part.py", line 284, in train
+    train_loss, train_time = train_epoch(args, epoch, model, train_loader, optimizer, loss_type)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ujin/Github/FastMRI_challenge_featurevarnet/utils/learning/train_part.py", line 124, in train_epoch
+    total_loss += loss.item()
+                  ^^^^^^^^^^^
+KeyboardInterrupt

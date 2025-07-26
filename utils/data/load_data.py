@@ -64,16 +64,30 @@ class SliceData(Dataset):
         return self.transform(mask, input, target, attrs, kspace_fname.name, dataslice)
 
 
-def create_data_loaders(data_path, args, shuffle=False, isforward=False):
+def create_data_loaders(data_path, args, shuffle=False, isforward=False, augmentor=None):
+    """
+    Create data loaders with optional MRAugment support.
+    
+    Args:
+        data_path: Path to the data
+        args: Arguments containing data configuration
+        shuffle: Whether to shuffle the data
+        isforward: Whether this is for forward pass (inference)
+        augmentor: Optional MRAugment DataAugmentor instance for training data
+    """
     if isforward == False:
         max_key_ = args.max_key
         target_key_ = args.target_key
     else:
         max_key_ = -1
         target_key_ = -1
+    
+    # Use augmentor only for training data (not forward/validation)
+    transform_augmentor = augmentor if (not isforward and shuffle) else None
+    
     data_storage = SliceData(
         root=data_path,
-        transform=DataTransform(isforward, max_key_),
+        transform=DataTransform(isforward, max_key_, augmentor=transform_augmentor),
         input_key=args.input_key,
         target_key=target_key_,
         forward = isforward

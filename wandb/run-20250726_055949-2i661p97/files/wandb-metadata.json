@@ -1,0 +1,73 @@
+{
+  "os":  "Linux-6.8.0-64-generic-x86_64-with-glibc2.35",
+  "python":  "CPython 3.12.11",
+  "startedAt":  "2025-07-25T20:59:49.432353Z",
+  "args":  [
+    "--feature_model_type",
+    "basic",
+    "--cascade",
+    "2",
+    "--chans",
+    "18",
+    "--sens_chans",
+    "8",
+    "--batch-size",
+    "1",
+    "--num-epochs",
+    "2",
+    "--lr",
+    "3e-4",
+    "--net-name",
+    "feature_varnet_online_test",
+    "--data-path-train",
+    "/media/ujin/Windows/fastmri/train",
+    "--data-path-val",
+    "/media/ujin/Windows/fastmri/val",
+    "--aug_on",
+    "--aug_strength",
+    "0.3",
+    "--aug_schedule",
+    "constant",
+    "--aug_delay",
+    "0",
+    "--wandb-project",
+    "fastmri-mraugment-experiments",
+    "--wandb-name",
+    "online_test_aug_0.3"
+  ],
+  "program":  "/home/ujin/Github/FastMRI_challenge_featurevarnet/train.py",
+  "codePath":  "train.py",
+  "codePathLocal":  "train.py",
+  "git":  {
+    "remote":  "https://github.com/sMartify-fastmri/FastMRI_challenge_featurevarnet.git",
+    "commit":  "300821982ce238c5a063dd7d943723e724b8b440"
+  },
+  "email":  "eugene5759@snu.ac.kr",
+  "root":  "/home/ujin/Github/FastMRI_challenge_featurevarnet",
+  "host":  "ujin-Desk-ASRock-Z790-PG-Lightning-D5",
+  "executable":  "/home/ujin/miniconda3/envs/fastmri/bin/python",
+  "cpu_count":  24,
+  "cpu_count_logical":  32,
+  "gpu":  "NVIDIA GeForce RTX 4080 SUPER",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "721334468608",
+      "used":  "102055313408"
+    }
+  },
+  "memory":  {
+    "total":  "33469808640"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 4080 SUPER",
+      "memoryTotal":  "17171480576",
+      "cudaCores":  10240,
+      "architecture":  "Ada",
+      "uuid":  "GPU-8956385d-da5c-61ec-d005-373a80fe64d1"
+    }
+  ],
+  "cudaVersion":  "12.9",
+  "writerId":  "v8u88iovpvbjyjn3oay2yy7ay0f3xde9"
+}

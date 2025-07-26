@@ -1,0 +1,23 @@
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_setup.py:_flush():80] Current SDK version is 0.21.0
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_setup.py:_flush():80] Configure stats pid to 5743
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_setup.py:_flush():80] Loading settings from /home/ujin/.config/wandb/settings
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_setup.py:_flush():80] Loading settings from /home/ujin/Github/FastMRI_challenge_featurevarnet/wandb/settings
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_setup.py:_flush():80] Loading settings from environment variables
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_init.py:setup_run_log_directory():703] Logging user logs to /home/ujin/Github/FastMRI_challenge_featurevarnet/wandb/offline-run-20250726_062607-0wk7xic8/logs/debug.log
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_init.py:setup_run_log_directory():704] Logging internal logs to /home/ujin/Github/FastMRI_challenge_featurevarnet/wandb/offline-run-20250726_062607-0wk7xic8/logs/debug-internal.log
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_init.py:init():830] calling init triggers
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_init.py:init():835] wandb.init called with sweep_config: {}
+config: {'GPU_NUM': 0, 'batch_size': 1, 'num_epochs': 1, 'lr': 0.0003, 'report_interval': 10, 'net_name': PosixPath('test_mraugment_fixed_basic_mraugment'), 'data_path_train': PosixPath('/media/ujin/Windows/fastmri/train'), 'data_path_val': PosixPath('/media/ujin/Windows/fastmri/val'), 'cascade': 1, 'chans': 9, 'sens_chans': 4, 'feature_model_type': 'basic', 'pools': 4, 'sens_pools': 4, 'input_key': 'kspace', 'target_key': 'image_label', 'max_key': 'max', 'seed': 430, 'wandb_project': 'fastmri-mraugment-working', 'wandb_name': 'test_mraugment_fixed_v2', 'wandb_offline': True, 'disable_wandb': False, 'aug_on': True, 'aug_schedule': 'constant', 'aug_delay': 0, 'aug_strength': 0.3, 'aug_exp_decay': 5.0, 'aug_interpolation_order': 1, 'aug_upsample': False, 'aug_upsample_factor': 2, 'aug_upsample_order': 1, 'aug_weight_translation': 1.0, 'aug_weight_rotation': 1.0, 'aug_weight_shearing': 1.0, 'aug_weight_scaling': 1.0, 'aug_weight_rot90': 1.0, 'aug_weight_fliph': 1.0, 'aug_weight_flipv': 1.0, 'aug_max_translation_x': 0.125, 'aug_max_translation_y': 0.125, 'aug_max_rotation': 180.0, 'aug_max_shearing_x': 15.0, 'aug_max_shearing_y': 15.0, 'aug_max_scaling': 0.25, 'max_train_resolution': None, 'exp_dir': PosixPath('../result/test_mraugment_fixed_basic_mraugment/checkpoints'), 'val_dir': PosixPath('../result/test_mraugment_fixed_basic_mraugment/reconstructions_val'), 'main_dir': PosixPath('../result/test_mraugment_fixed_basic_mraugment/train.py'), 'val_loss_dir': PosixPath('../result/test_mraugment_fixed_basic_mraugment'), '_wandb': {}}
+2025-07-26 06:26:07,869 INFO    MainThread:5743 [wandb_init.py:init():871] starting backend
+2025-07-26 06:26:08,073 INFO    MainThread:5743 [wandb_init.py:init():874] sending inform_init request
+2025-07-26 06:26:08,076 INFO    MainThread:5743 [wandb_init.py:init():882] backend started and connected
+2025-07-26 06:26:08,079 INFO    MainThread:5743 [wandb_init.py:init():953] updated telemetry
+2025-07-26 06:26:08,094 INFO    MainThread:5743 [wandb_init.py:init():977] communicating run to backend with 90.0 second timeout
+2025-07-26 06:26:08,207 INFO    MainThread:5743 [wandb_init.py:init():1029] starting run threads in backend
+2025-07-26 06:26:08,251 INFO    MainThread:5743 [wandb_run.py:_console_start():2458] atexit reg
+2025-07-26 06:26:08,251 INFO    MainThread:5743 [wandb_run.py:_redirect():2306] redirect: wrap_raw
+2025-07-26 06:26:08,252 INFO    MainThread:5743 [wandb_run.py:_redirect():2375] Wrapping output streams.
+2025-07-26 06:26:08,252 INFO    MainThread:5743 [wandb_run.py:_redirect():2398] Redirects installed.
+2025-07-26 06:26:08,252 INFO    MainThread:5743 [wandb_init.py:init():1075] run started, returning control to user process
+2025-07-26 06:26:08,253 INFO    MainThread:5743 [wandb_run.py:_config_callback():1363] config_cb None None {'model_parameters': 7884884, 'trainable_parameters': 7884884}
+2025-07-26 06:26:11,213 INFO    MsgRouterThr:5743 [mailbox.py:close():129] [no run ID] Closing mailbox, abandoning 0 handles.
